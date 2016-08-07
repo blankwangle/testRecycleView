@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(this);
         linearLayoutManager2.setOrientation(linearLayoutManager2.VERTICAL);
+
         listview2.setLayoutManager(linearLayoutManager2);
         listview2.addItemDecoration(new LinearItemDecoration(this, LinearLayoutManager.VERTICAL));
 
