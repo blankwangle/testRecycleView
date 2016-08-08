@@ -96,7 +96,19 @@ public class GridItemDecoration extends RecyclerView.ItemDecoration {
             if( pos >= chlidCount )
                 return true;
         } else if( layoutManager instanceof StaggeredGridLayoutManager ){
-
+            int orientation = ((StaggeredGridLayoutManager) layoutManager).getOrientation();
+            if( orientation == StaggeredGridLayoutManager.VERTICAL ){
+                if( orientation == StaggeredGridLayoutManager.VERTICAL ){
+                    chlidCount = chlidCount - chlidCount % spanCount;
+                    if( pos > chlidCount ) {
+                        return true;
+                    }
+                } else {
+                    if( (pos+1) % spanCount == 0 ){
+                        return true;
+                    }
+                }
+            }
         }
 
         return false;
@@ -114,15 +126,33 @@ public class GridItemDecoration extends RecyclerView.ItemDecoration {
                 return true;
             }
         } else if( layoutManager instanceof StaggeredGridLayoutManager ){
-
+            int orientation = ((StaggeredGridLayoutManager) layoutManager).getOrientation();
+            if( orientation == StaggeredGridLayoutManager.VERTICAL ){
+                if( (pos+1) % spanCount == 0 ){
+                    return true;
+                }
+            } else {
+                chlidCount = chlidCount - chlidCount % spanCount;
+                if( pos > chlidCount ) {
+                    return true;
+                }
+            }
         }
         return false;
     }
 
     @Override
-    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-        super.getItemOffsets(outRect, view, parent, state);
+    public void getItemOffsets(Rect outRect, int itemPosition, RecyclerView parent) {
+        super.getItemOffsets(outRect, itemPosition, parent);
+        int spanCount = getSpanCount(parent);
+        int childCount = parent.getChildCount();
 
-
+        if( isLastCloum(parent, itemPosition, spanCount, childCount)){
+            outRect.set( 0, 0, 0, mDivider.getIntrinsicHeight());
+        } else if( isLastRow(parent, itemPosition, spanCount, childCount)){
+            outRect.set( 0, 0, mDivider.getIntrinsicHeight(), 0);
+        } else {
+            outRect.set( 0, 0, mDivider.getIntrinsicHeight(), mDivider.getIntrinsicHeight());
+        }
     }
 }
