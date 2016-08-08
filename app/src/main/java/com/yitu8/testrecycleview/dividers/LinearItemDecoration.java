@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 /**
+ * 绘制listview分割线
  * Created by Administrator on 2016/8/7.
  */
 public class LinearItemDecoration extends RecyclerView.ItemDecoration {

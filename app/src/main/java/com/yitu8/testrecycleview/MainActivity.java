@@ -15,6 +15,9 @@ import android.widget.TextView;
 import com.yitu8.testrecycleview.dividers.GridItemDecoration;
 import com.yitu8.testrecycleview.dividers.LinearItemDecoration;
 
+/**
+ * 之所以写的如此复杂是因为我想在这一个界面上通过点击按钮简单的切换
+ * */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private MyRecycleView listview1, listview2, listview3, listview4, listview5, listview6;

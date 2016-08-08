@@ -9,22 +9,22 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
-import android.view.ViewGroup;
 
 /**
+ * 网格布局的分割线
  * Created by Administrator on 2016/8/7.
  */
 public class GridItemDecoration extends RecyclerView.ItemDecoration {
 
-    private final static int[] ATTRS = {
+    private final static int[] ATTRS = {//可以在res文件中配置线的颜色和宽高
             android.R.attr.listDivider
     };
 
-    private Drawable mDivider;
+    private Drawable mDivider;//划线的类
 
     public GridItemDecoration(Context context){
         final TypedArray a = context.obtainStyledAttributes(ATTRS);
-        mDivider = a.getDrawable(0);
+        mDivider = a.getDrawable(0);//获取到res分割线的配置
         a.recycle();
     }
 
@@ -36,10 +36,13 @@ public class GridItemDecoration extends RecyclerView.ItemDecoration {
             return;
         }
 
-        drawHorizontal(c, parent);
-        drawVertical(c, parent);
+        drawHorizontal(c, parent);//绘制横线
+        drawVertical(c, parent);//绘制竖线
     }
 
+    /**
+     *分别获取网格布局和瀑布流的列数
+     * */
     private int getSpanCount( RecyclerView parent ){
         RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
         int spanCount = 0;
@@ -53,9 +56,12 @@ public class GridItemDecoration extends RecyclerView.ItemDecoration {
         return spanCount;
     }
 
+    /**
+     * 绘制横线
+     * */
     private void drawHorizontal( Canvas c, RecyclerView parent ){
 
-        final int chlidCount = parent.getChildCount();
+        final int chlidCount = parent.getChildCount();//获取子控件的个数
         for( int i = 0; i < chlidCount; i++ ){
             final View child = parent.getChildAt(i);
             final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
@@ -69,6 +75,9 @@ public class GridItemDecoration extends RecyclerView.ItemDecoration {
         }
     }
 
+    /**
+     * 绘制竖线
+     * */
     private void drawVertical( Canvas c, RecyclerView parent ){
         final int chlidCount = parent.getChildCount();
         for( int i = 0; i < chlidCount; i++ ){
@@ -84,6 +93,11 @@ public class GridItemDecoration extends RecyclerView.ItemDecoration {
         }
     }
 
+    /**
+     * 最后一行或者最后一列是不进行划线的
+     *
+     * 当先是否绘制到最后一行
+     * */
     private boolean isLastRow( RecyclerView parent, int pos, int spanCount, int chlidCount ){
         RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
 
@@ -114,6 +128,9 @@ public class GridItemDecoration extends RecyclerView.ItemDecoration {
         return false;
     }
 
+    /**
+    * 当先是否绘制到最后一列
+    * */
     private boolean isLastCloum( RecyclerView parent, int pos, int spanCount, int chlidCount ){
         RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
 
@@ -141,6 +158,9 @@ public class GridItemDecoration extends RecyclerView.ItemDecoration {
         return false;
     }
 
+    /**
+     * 设置偏移量
+     * */
     @Override
     public void getItemOffsets(Rect outRect, int itemPosition, RecyclerView parent) {
         super.getItemOffsets(outRect, itemPosition, parent);
